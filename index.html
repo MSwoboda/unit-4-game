@@ -36,16 +36,16 @@
                     class="float-right badge badge-success mr-2">Wins: 0</span> </h2>
                 <div class="display-4 text-center">Your Number
                   <br>
-                  <button id="button-1 text-center" class="btn btn-primary btn-choice dispabled  centered" value="1">
+                  <button id="start" class="btn btn-primary btn-choice dispabled  centered" value="1">
                     <h1 id="number">?</h1>
                   </button>
 
-    
+
                 </div>
 
-<br>
-            
-                <div class="text-muted text-center">Press ? to start new game</div>
+                <br>
+
+                <div class="text-muted text-center">Press '?'' to start new game</div>
 
               </div>
             </div>
@@ -61,11 +61,11 @@
                   <button type="button" class="btn btn-light border-dark mr-3" style="width: 100%" data-toggle="tooltip"
                     data-placement="bottom" id="b1" title="Emerald">
 
-                    <div class="card-header">
+                    <div id="crystal1" class="card-header">
                       Emerald
                     </div>
 
-                    <img src="assets/images/crystal1.jpg" style="width: 100%" alt="">
+                    <img id="img1"  src="assets/images/crystal1.jpg" style="width: 100%" alt="">
                   </button>
 
                 </div>
@@ -75,10 +75,10 @@
                   <button type="button" class="btn btn-light border-dark  mr-3" style="width: 100%"
                     data-toggle="tooltip" data-placement="bottom" id="b2" title="Emerald">
 
-                    <div class="card-header">
+                    <div id="crystal2" class="card-header">
                       Emerald
                     </div>
-                    <img src="assets/images/crystal2.jpg" style="width: 100%" alt="">
+                    <img  id="img1" src="assets/images/crystal2.jpg" style="width: 100%" alt="">
                   </button>
 
                 </div>
@@ -87,11 +87,11 @@
 
                   <button type="button" class="btn btn-light border-dark  mr-3 " style="width: 100%"
                     data-toggle="tooltip" data-placement="bottom" id="b3" title="Emerald">
-                    <div class="card-header">
+                    <div id="crystal3"  class="card-header">
                       Emerald
                     </div>
 
-                    <img src="assets/images/crystal3.jpg" style="width: 100%" alt="">
+                    <img id="img1" src="assets/images/crystal3.jpg" style="width: 100%" alt="">
                   </button>
 
                 </div>
@@ -101,11 +101,11 @@
                   <button type="button" class="btn btn-light border-dark  mr-3" style="width: 100%"
                     data-toggle="tooltip" data-placement="bottom" id="b4" title="Emerald">
 
-                    <div class="card-header">
+                    <div  id="crystal4" class="card-header">
                       Emerald
                     </div>
 
-                    <img src="assets/images/crystal4.jpg" style="width: 100%" alt="">
+                    <img id="img1" src="assets/images/crystal4.jpg" style="width: 100%" alt="">
                   </button>
                 </div>
               </div>
@@ -180,6 +180,39 @@
 
     var crystalArray = ["Emerald", "Jade", "Diamond", "Agate", "Malachite", "Obsidian", "Ruby", "Sapphire", "Tanzanite", "Iolite"];
 
+    var game = {randomNumber: 0, score: 0, wins: 0, loses: 0} 
+    var gems = {type:["","","",""], price:[0,0,0,0], img:["","","",""]};
+
+
+
+    var selected;
+
+    function newGame(params) {
+      game.randomNumber = Math.floor( Math.random() * (+120 - +19) + +19); 
+
+
+      var shuffled = crystalArray.sort(() => 0.5 - Math.random());
+      gems.type =  shuffled.slice(0, 4);
+
+      for (let index = 0; index < 4; index++) {
+        gems.price[index] = Math.floor( Math.random() * (+12 - +1) + +1);         
+      }
+
+      console.log(gems)
+
+      $("#number").text(game.randomNumber);
+
+
+    }
+
+
+$("#start").on("click",function (params) {
+  
+newGame();
+
+
+})
+
 
     $(document).ready(function () {
       $('.toast').toast('show');
@@ -188,6 +221,12 @@
       //Sort and load new headers and imgs
     });
 
+
+    $("#b1").on("click", function (event) {
+      console.log("click1")
+
+
+    })
 
 
 
