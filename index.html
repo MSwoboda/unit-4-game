@@ -122,6 +122,8 @@
 
 
     <script>
+
+$(document).ready(function() {
         var crystalArray = ["Emerald", "Jade", "Diamond", "Agate", "Malachite", "Obsidian", "Ruby", "Sapphire", "Tanzanite", "Iolite"];
 
         //create img array 
@@ -199,13 +201,12 @@
         })
 
 
-        $(document).ready(function() {
-            $('.toast').toast('show');
+ 
+           
 
 
             //Sort and load new headers and imgs
-        });
-
+   
 
         $("#b1").on("click", function(event) {
             addScore(0);
@@ -231,6 +232,9 @@
 
 
         })
+
+    });
+
     </script>
 
 
