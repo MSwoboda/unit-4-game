@@ -1,4 +1,12 @@
 .jumbotron {
     background-image: url("../images/jumbotron_bg.jpg");
     background-size: cover;
-  }
+}
+
+.font-large-resp {
+    font-size: 3vw;
+}
+
+.font-small-resp {
+    font-size: 2vw;
+}

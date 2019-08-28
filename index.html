@@ -20,42 +20,46 @@
 
 <body class="bg-dark">
     <div class="container bg-dark">
-
         <div class="container-fluid">
-            <div class="row ">
-
+            <div class="row p-0">
                 <div class="col-xs-7">
-
                     <div class="jumbotron  text-white">
 
-                        <div class="card text-dark bg-light ">
-                            <div class="card-body ">
-                                <h2 class="card-title font-weight-bold">Crystal Collector <span id="wins" class="float-right badge badge-danger mr-2"> Loses: 0</span> <span id="loses" class="float-right badge badge-success mr-2">Wins: 0</span> </h2>
-                                <div class="display-3 text-center"> <button id="start" class="btn btn-primary btn-choice dispabled  centered" value="1">
-                                    <h1 id="number">?</h1>
-                                  </button>
+                        <div class=row>
+                            <div class="col-12">
+                                <div class="card text-dark bg-light ">
+                                    <div class="card-body ">
+                                        <h2 class="card-title font-weight-bold font-large-resp">Crystal Collector <span id="wins" class="float-right badge badge-danger mr-2"> Loses: 0</span> <span id="loses" class="float-right badge badge-success mr-2">Wins: 0</span> </h2>
+                                        <div class="display-3 text-center"> <button id="start" class="btn btn-primary btn-choice dispabled  centered" value="1">
+        <h1 id="number">?</h1>
+      </button>
+                                            <br>
 
 
 
+                                        </div>
+
+
+                                        <div id="tooltip" class="font-small-resp text-muted text-center">Press '?'' to start new game</div>
+
+                                    </div>
                                 </div>
-
-
-                                <div id="tooltip" class="text-muted text-center">Press '?'' to start new game</div>
-
                             </div>
+
+
                         </div>
 
-                        <br>
+
                         <br>
 
                         <div class="row justify-content-center">
 
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-6  col-sm-3 mb-2">
 
-                                    <button type="button" class="btn btn-light border-dark mr-3" style="width: 100%" data-toggle="tooltip" data-placement="bottom" id="b1" title="Emerald">
+                                    <button type="button" class="btn btn-light border-dark mr-2" style="width: 100%" data-toggle="tooltip" data-placement="bottom" id="b1" title="Emerald">
 
-                    <div id="crystal1" style="font-size:2vw;" class="card-header">
+                    <div id="crystal1" class="font-small-resp card-header">
                       Emerald
                     </div>
 
@@ -64,11 +68,11 @@
 
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-6 col-sm-3">
 
-                                    <button type="button" class="btn btn-light border-dark  mr-3" style="width: 100%" data-toggle="tooltip" data-placement="bottom" id="b2" title="Emerald">
+                                    <button type="button" class="btn btn-light border-dark  mr-2" style="width: 100%" data-toggle="tooltip" data-placement="bottom" id="b2" title="Emerald">
 
-                    <div id="crystal2" style="font-size:2vw;" class="card-header">
+                    <div id="crystal2" class="font-small-resp card-header">
                       Emerald
                     </div>
                     <img  id="img2"  src="assets/images/crystal2.jpg" style="width: 100%" alt="">
@@ -76,10 +80,10 @@
 
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-6 col-sm-3">
 
-                                    <button type="button" class="btn btn-light border-dark  mr-3 " style="width: 100%" data-toggle="tooltip" data-placement="bottom" id="b3" title="Emerald">
-                    <div id="crystal3" style="font-size:2vw;"  class="card-header">
+                                    <button type="button" class="btn btn-light border-dark  mr-2 " style="width: 100%" data-toggle="tooltip" data-placement="bottom" id="b3" title="Emerald">
+                    <div id="crystal3" class="font-small-resp card-header">
                       Emerald
                     </div>
 
@@ -88,11 +92,11 @@
 
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-6 col-sm-3">
 
-                                    <button type="button" class="btn btn-light border-dark  mr-3" style="width: 100%" data-toggle="tooltip" data-placement="bottom" id="b4" title="Emerald">
+                                    <button type="button" class="btn btn-light border-dark  mr-2" style="width: 100%" data-toggle="tooltip" data-placement="bottom" id="b4" title="Emerald">
 
-                    <div  id="crystal4" style="font-size:2vw;" class="card-header">
+                    <div  id="crystal4"  class="font-small-resp card-header">
                       Emerald
                     </div>
 
@@ -145,18 +149,18 @@
         var selected;
 
         function newGame(params) {
+            game.score = 0;
             game.randomNumber = Math.floor(Math.random() * (+120 - +19) + +19);
-
 
             gems.type = crystalArray.sort(() => 0.5 - Math.random()).slice(0, 4);
 
             for (let index = 0; index < 4; index++) {
                 gems.price[index] = Math.floor(Math.random() * (+12 - +1) + +1);
-
             }
 
-
             console.log(gems)
+            $("#loses").text("Loses: " + game.loses)
+            $("#wins").text("Wins: " + game.wins)
 
             $("#number").text(game.randomNumber);
             gems.img = imgArray.sort(() => 0.5 - Math.random()).slice(0, 4);
@@ -172,9 +176,20 @@
             $("#crystal3").text(gems.type[2])
             $("#crystal4").text(gems.type[3])
 
-            $("#tooltip").text("Each crystal has a hidden score. Click on any of the crystal to add its score to yours. If your score is equal to the number on the screen you win")
+            $("#tooltip").text("Click crystals to increase your (hidden) score. If your score matches the random number you win!")
         }
 
+        function addScore(selector) {
+            game.score += gems.price[selector]
+            console.log(game.score);
+            if (game.score > game.randomNumber) {
+                game.loses++
+                    newGame();
+            } else if (game.score === game.randomNumber) {
+                game.wins++
+                    newGame();
+            }
+        }
 
         $("#start").on("click", function(params) {
 
@@ -193,35 +208,26 @@
 
 
         $("#b1").on("click", function(event) {
-            console.log("click1")
-
-
+            addScore(0);
         })
 
-
-
-        $("#b1").on("click", function(event) {
-            console.log("click1")
-
-
-        })
 
         $("#b2").on("click", function(event) {
-            console.log("click2")
+            addScore(1);
 
 
         })
 
 
         $("#b3").on("click", function(event) {
-            console.log("click3")
 
+            addScore(2);
 
         })
 
 
         $("#b4").on("click", function(event) {
-            console.log("click4")
+            addScore(3);
 
 
         })
